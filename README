@@ -1,0 +1,6 @@
+Library to help read input from Nettigo Keypad - simple extension for
+Arduino with four direction keys and selection key. Uses only one analog
+input. 
+
+Sold by Nettigo:
+http://nettigo.pl/product/Nettigo-Keypad---odczyt-przez-wejscie-analogowe,keypad

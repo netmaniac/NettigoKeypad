@@ -13,35 +13,47 @@ NG_Keypad::NG_Keypad(void) {
 };
 
 int NG_Keypad::key_pressed(int rd) {
-  if (rd < 250) return RIGHT;
-  if (rd < 590) return UP;
-  if (rd < 749) return DOWN;
-  if (rd < 792) return LEFT;
-  if (rd < 912) return SELECT;
-  return NONE;
+  static int ret;
+	
+  if (rd < 250)		{ ret = RIGHT;}
+  else if (rd < 590) 	{ ret = UP; }
+  else if (rd < 749) 	{ ret = DOWN; }
+  else if (rd < 792) 	{ ret = LEFT; }
+  else if (rd < 912) 	{ ret = SELECT; }
+  else { ret = NONE; }
+  //no change since last time or timeout for debouncing not passed - do nothing 	
+  if (ret == lastKey || millis() - lastKeyTime < debounceDelay) {
+    return NONE;
+  } else  {
+    lastKey = ret;
+    lastKeyTime = millis();
+    return ret;
+  }
+			
 };
 
-void NG_Keypad::check_handlers(byte rd) {
-  if (_functions[key_pressed(rd)] != NULL) 
+void NG_Keypad::check_handlers(int rd) {
+  int key =  key_pressed(rd);
+  if (_functions[key] != NULL) 
   {
-    _functions[key_pressed(rd)]();
+    _functions[key]();
   };
   return;
 }
 
 
-int NG_Keypad::register_handler( byte key, void (*userF)(void) ) {
+int NG_Keypad::register_handler( int key, void (*userF)(void) ) {
   if(key >= NG_KEYPAD_SIZE)
     return -1;
-    _functions[key] = userF;
+  _functions[key] = userF;
 };
 
 unsigned int NG_Keypad::getDebounceDelay( void ){
-	return debounceDelay;
+  return debounceDelay;
 };
 
 void NG_Keypad::setDebounceDelay (unsigned int d){
-	debounceDelay = d;
+  debounceDelay = d;
 };
 
 

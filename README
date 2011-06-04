@@ -8,4 +8,5 @@ http://nettigo.pl/product/Nettigo-Keypad---odczyt-przez-wejscie-analogowe,keypad
 History:
 
 2011-03-08: First version
-2011-06-04: v0.2 - keypad is debounced by default
+2011-03-28: v0.2 - Support for function handlers called when key is pressed
+2011-06-04: v0.3 - Keypad is debounced by default

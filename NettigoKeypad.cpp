@@ -9,6 +9,7 @@ NG_Keypad::NG_Keypad(void) {
  //store current time and set last pressed key to none
  lastKey = NONE;
  lastKeyTime = millis();
+ debounce = true;
  debounceDelay = 50;
 };
 
@@ -16,11 +17,14 @@ int NG_Keypad::key_pressed(int rd) {
   static int ret;
 	
   if (rd < 250)		{ ret = RIGHT;}
-  else if (rd < 590) 	{ ret = UP; }
-  else if (rd < 749) 	{ ret = DOWN; }
-  else if (rd < 792) 	{ ret = LEFT; }
-  else if (rd < 912) 	{ ret = SELECT; }
+  else if (rd < 380) 	{ ret = UP; }
+  else if (rd < 490) 	{ ret = DOWN; }
+  else if (rd < 550) 	{ ret = LEFT; }
+  else if (rd < 690) 	{ ret = SELECT; }
   else { ret = NONE; }
+  //return result at once if no debouncing enabled
+  if (!debounce)
+    return ret;
   //no change since last time or timeout for debouncing not passed - do nothing 	
   if (ret == lastKey || millis() - lastKeyTime < debounceDelay) {
     return NONE;
@@ -54,6 +58,14 @@ unsigned int NG_Keypad::getDebounceDelay( void ){
 
 void NG_Keypad::setDebounceDelay (unsigned int d){
   debounceDelay = d;
+};
+
+bool NG_Keypad::getDebounce( void ){
+  return debounce;
+};
+
+void NG_Keypad::setDebounce (bool d){
+  debounce = d;
 };
 
 

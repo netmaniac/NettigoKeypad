@@ -15,11 +15,18 @@ class NG_Keypad
   static const int UP      = 4;
   static const int RIGHT   = 5;
   
+  //should we do debounce?
+  bool debounce;
+  
+  
   NG_Keypad(void);  
 	
   //which key was pressed? Takes analog input value and returns constant
   //describing which key was pressed.
   int key_pressed(int rd);
+  //debounce keys?
+  void setDebounce(bool);
+  bool getDebounce(void);
 
   //Register handler to be called when key pressed
   // takes two args

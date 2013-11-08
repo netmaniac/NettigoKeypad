@@ -1,7 +1,15 @@
 //Nettigo Keypad library
 //Published on MIT licence
-// (c) 2011 Nettigo
-#include "WProgram.h"
+// (c) 2011-2013 Nettigo.pl
+
+#ifndef _NG_Keypad_h_
+#define _NG_Keypad_h_
+
+#if (ARDUINO >= 100)
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
 
 #define NG_KEYPAD_SIZE  6
 
@@ -55,3 +63,4 @@ class NG_Keypad
   
 };
 
+#endif

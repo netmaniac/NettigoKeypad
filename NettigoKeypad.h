@@ -16,12 +16,12 @@
 class NG_Keypad
 {
   public:
-  static const int NONE    = 0;
-  static const int SELECT  = 1;
-  static const int LEFT    = 2;
-  static const int DOWN    = 3;
-  static const int UP      = 4;
-  static const int RIGHT   = 5;
+  static const byte NONE    = 0;
+  static const byte SELECT  = 1;
+  static const byte LEFT    = 2;
+  static const byte  DOWN    = 3;
+  static const byte UP      = 4;
+  static const byte RIGHT   = 5;
   
   //should we do debounce?
   bool debounce;
@@ -31,7 +31,7 @@ class NG_Keypad
 	
   //which key was pressed? Takes analog input value and returns constant
   //describing which key was pressed.
-  int key_pressed(int rd);
+  byte key_pressed(int rd);
   //debounce keys?
   void setDebounce(bool);
   bool getDebounce(void);
@@ -40,7 +40,7 @@ class NG_Keypad
   // takes two args
   // key - which key should be used
   // userF - which function should be called when key pressed
-  int register_handler( int key, void (*userF)(void) );
+  int register_handler( byte key, void (*userF)(void) );
   
   //Check for handlers to be called. Takes as argument analogRead result.
   void check_handlers(int rd);
@@ -58,7 +58,7 @@ class NG_Keypad
   unsigned int debounceDelay;
 	
   //what last key was pressed and when (millis)
-  int lastKey;
+  byte lastKey;
   unsigned long lastKeyTime;
   
 };

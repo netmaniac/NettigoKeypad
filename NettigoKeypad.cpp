@@ -5,50 +5,51 @@
 #include "NettigoKeypad.h"
 
 NG_Keypad::NG_Keypad(void) {
- for (int i=0; i++; i< NG_KEYPAD_SIZE) { _functions[i] = NULL; }
- //store current time and set last pressed key to none
- lastKey = NONE;
- lastKeyTime = millis();
- debounce = true;
- debounceDelay = 50;
+  for (int i=0; i++; i< NG_KEYPAD_SIZE) { _functions[i] = NULL; }
+  //store current time and set last pressed key to none
+  lastKey = NONE;
+  lastKeyTime = millis();
+  debounce = true;
+  debounceDelay = 50;
+
 };
 
-int NG_Keypad::key_pressed(int rd) {
-  static int ret;
-	
-  if (rd < 250)		{ ret = RIGHT;}
-  else if (rd < 380) 	{ ret = UP; }
-  else if (rd < 490) 	{ ret = DOWN; }
-  else if (rd < 550) 	{ ret = LEFT; }
-  else if (rd < 690) 	{ ret = SELECT; }
+byte NG_Keypad::key_pressed(int rd) {
+  static byte ret;
+  
+  if (rd < boundaries[0])		{ ret = RIGHT;}
+  else if (rd < boundaries[1]) 	{ ret = UP; }
+  else if (rd < boundaries[2]) 	{ ret = DOWN; }
+  else if (rd < boundaries[3]) 	{ ret = LEFT; }
+  else if (rd < boundaries[4]) 	{ ret = SELECT; }
   else { ret = NONE; }
   //return result at once if no debouncing enabled
   if (!debounce)
-    return ret;
+	return ret;
   //no change since last time or timeout for debouncing not passed - do nothing 	
   if (ret == lastKey || millis() - lastKeyTime < debounceDelay) {
-    return NONE;
+	return NONE;
   } else  {
-    lastKey = ret;
-    lastKeyTime = millis();
-    return ret;
+	lastKey = ret;
+	lastKeyTime = millis();
+	return ret;
   }
-			
+
 };
 
 void NG_Keypad::check_handlers(int rd) {
-  int key =  key_pressed(rd);
+  byte key =  key_pressed(rd);
   if (_functions[key] != NULL) 
   {
-    _functions[key]();
+	_functions[key]();
   };
   return;
 }
 
 
-int NG_Keypad::register_handler( int key, void (*userF)(void) ) {
+int NG_Keypad::register_handler( byte key, void (*userF)(void) ) {
   if(key >= NG_KEYPAD_SIZE)
-    return -1;
+	return -1;
   _functions[key] = userF;
 };
 
@@ -68,4 +69,7 @@ void NG_Keypad::setDebounce (bool d){
   debounce = d;
 };
 
+void NG_Keypad::setBoundaries( int *b) {
+  for (byte i=0; i < 5; i++) { boundaries[i] = b[i];}
+};  
 

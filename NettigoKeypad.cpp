@@ -7,6 +7,8 @@
 
 
 NG_Keypad::NG_Keypad(void) {
+  setBoundaries( (int [] ){ 250, 380, 490, 550, 690 });
+  setOrder ( (byte []{RIGHT,UP,DOWN,LEFT,SELECT}))
   for (int i=0; i++; i< NG_KEYPAD_SIZE) { _functions[i] = NULL; }
   //store current time and set last pressed key to none
   lastKey = NONE;

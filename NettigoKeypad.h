@@ -95,12 +95,10 @@ class NG_Keypad
 	 * Boundary values has to be in ascending order in array, if order on Your
 	 * keypad is use setOrder() function to provide proper one.
 	 * 	 */
-	byte order[5] = {
-		RIGHT,UP,DOWN,LEFT,SELECT
-	};
+	byte order[5];
 	
 
-	int boundaries[5] = { 250, 380, 490, 550, 690 };
+	int boundaries[5];
 
 	//default debounce timeout
 	unsigned int debounceDelay;

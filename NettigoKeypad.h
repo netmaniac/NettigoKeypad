@@ -26,8 +26,20 @@ class NG_Keypad
 	//should we do debounce?
 	bool debounce;
 
-
+	//Use default analog input values
 	NG_Keypad(void);  
+	/* 
+	provide set of pair values key code, and boundary value between them
+
+	So, LEFT, 30, RIGHT, 100 will read 
+	*/
+
+	NG_Keypad(
+		byte, unsigned, 
+		byte, unsigned, 
+		byte, unsigned, 
+		byte, unsigned, 
+		byte, unsigned);  
 
 	//which key was pressed? Takes analog input value and returns constant
 	//describing which key was pressed.
@@ -53,6 +65,20 @@ class NG_Keypad
 
 	//assign custom values as boundaries in voltage divider
 	void setBoundaries( int * );
+	void setBoundaries( int, int, int, int, int );
+
+
+	/*
+	Set new order of keys in case Your keypad has different order than 
+	RIGHT, UP, DOWN, LEFT, SELECT.
+
+	Example 
+	NG_Keypad.setOrder(LEFT,RIGHT,UP,DOWN,SELECT);
+	*/
+	void setOrder( byte, byte, byte, byte, byte);
+	void setOrder( byte const *);
+
+
 	private:
 	void  (*_functions[NG_KEYPAD_SIZE])(void);
 
@@ -67,9 +93,13 @@ class NG_Keypad
 	 * NG_Keypad::NONE
 	 * 
 	 * Boundary values has to be in ascending order in array, if order on Your
-	 * keypad is different You has to write some wrapper to change values. Do not
-	 * change order of values or keypad will be not working properly.
+	 * keypad is use setOrder() function to provide proper one.
 	 * 	 */
+	byte order[5] = {
+		RIGHT,UP,DOWN,LEFT,SELECT
+	};
+	
+
 	int boundaries[5] = { 250, 380, 490, 550, 690 };
 
 	//default debounce timeout

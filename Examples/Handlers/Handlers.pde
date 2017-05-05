@@ -29,9 +29,35 @@ Uses:
 
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(2,3,4,5,6,7);
+//Stanadalone LCD connected as in comments above
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 
+/*
+ * For LCD shields with integrated keypad
+ * 
+ * https://nettigo.pl/products/shield-lcd-2x16-z-klawiatura-do-arduino
+ * https://nettigo.pl/products/znakowy-shield-lcd-2x16
+ */
+//LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+
+
+/* For Nettigo Keypad
+ *  https://nettigo.pl/products/keypad-odczyt-przez-wejscie-analogowe
+ */
 NG_Keypad keypad;
+
+/*
+ * For LCD shields linked above
+ */
+
+ /*
+NG_Keypad keypad(
+  NG_Keypad::SELECT, 872,
+  NG_Keypad::LEFT, 600,
+  NG_Keypad::DOWN, 393,
+  NG_Keypad::UP, 218,
+  NG_Keypad::RIGHT, 65);
+*/
 
 //This function will be called when key UP was pressed
 //just write more on LCD

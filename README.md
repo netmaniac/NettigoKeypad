@@ -1,5 +1,5 @@
 
-Moved to [Nettigo Keypad](https://github.com/nettigo/NettigoKeymap).
+Moved to [Nettigo Keypad](https://github.com/nettigo/NettigoKeypad).
 
 Library to help read input from Nettigo Keypad - simple extension for
 Arduino with four direction keys and selection key. Uses only one analog
